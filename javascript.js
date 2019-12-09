@@ -51,10 +51,23 @@ class Component {
         this.x += this.speedX;
         this.y += this.speedY;
     }
+    left(){return this.x;}
+    right(){return this.x + this.width;}
+    top(){return this.y;}
+    bottom(){return this.y + this.height;}
+
+    crashWith(obstacle) {
+        return !(
+          this.bottom() < obstacle.top() ||
+          this.top() > obstacle.bottom() ||
+          this.right() < obstacle.left() ||
+          this.left() > obstacle.right()
+        );
+      }
 }
 
 let velocity = 10;
-let obstaclesQty = 60; // The highest value, the lowest obstacles
+let obstaclesQty = 100; // The highest value, the lowest obstacles
 let obstaclesSpd = 30;
 let player = new Component(30, 30, "red", 185, 600);
 let obstacles = [];
@@ -65,6 +78,7 @@ function updateGameArea() {
     playerUpdate();
     playerMovement();
     updateObstacles();
+    checkGameOver();
 }
 
 function playerUpdate(){
@@ -93,6 +107,17 @@ function updateObstacles() {
         obstacles.push(new Component(30, 30, "yellow", Math.random()*385, 0));
     }
 }
+
+function checkGameOver() {
+    var crashed = obstacles.some(function(obstacle) {
+      return player.crashWith(obstacle);
+    });
+  
+    if (crashed) {
+      myGameArea.stop();
+    }
+  }
+
 
 
 myGameArea.start();
