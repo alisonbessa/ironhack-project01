@@ -54,7 +54,7 @@ class Component {
 }
 
 let velocity = 10;
-let obstaclesQty = 80; // The highest value, the lowest obstacles quantity
+let obstaclesQty = 60; // The highest value, the lowest obstacles
 let obstaclesSpd = 30;
 let player = new Component(30, 30, "red", 185, 600);
 let obstacles = [];
