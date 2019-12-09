@@ -42,7 +42,7 @@ class Component {
     }
     
     update() {
-        var ctx = myGameArea.context;
+        let ctx = myGameArea.context;
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
@@ -66,6 +66,7 @@ class Component {
       }
 }
 
+let time = 10;
 let velocity = 10;
 let obstaclesQty = 100; // The highest value, the lowest obstacles
 let obstaclesSpd = 30;
@@ -80,6 +81,7 @@ function updateGameArea() {
     updateObstacles();
     checkGameOver();
 }
+
 
 function playerUpdate(){
     player.newPos();
@@ -109,14 +111,23 @@ function updateObstacles() {
 }
 
 function checkGameOver() {
-    var crashed = obstacles.some(function(obstacle) {
-      return player.crashWith(obstacle);
+    let crashed = obstacles.some(function(obstacle) {
+        return player.crashWith(obstacle);
     });
   
     if (crashed) {
-      myGameArea.stop();
+        myGameArea.stop();
+        alert("You have killed a space puppy!");
     }
-  }
+}
+
+setInterval(function() {gameOver(); }, time*1000);
+
+function gameOver(){
+ myGameArea.stop();
+ alert("Your time is over!");
+}
+
 
 
 
