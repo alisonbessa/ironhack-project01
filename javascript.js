@@ -34,6 +34,31 @@ let myGameArea = {
         this.context.fillStyle = "black";
         this.context.fillText("Time left: " + time, 40, 50);
     },
+    timeOver: function() {
+        this.context.textAlign = "center";
+        this.context.font = "25px serif";
+        this.context.fillStyle = "black";
+        this.context.fillText("Your time is over!", 10 , 220);
+        this.context.font = "20px serif";
+        this.context.fillStyle = "black";
+        this.context.fillText("Your final score is: " + score, 10 , 250);
+        this.context.font = "15px serif";
+        this.context.fillStyle = "black";
+        this.context.fillText("Press any key to restart", 200 , 560);
+    },
+    gameOver: function() {
+        this.context.textAlign = "center";
+        this.context.font = "25px serif";
+        this.context.fillStyle = "black";
+        this.context.fillText("You've killed Laika!", 200, 220);
+        this.context.font = "20px serif";
+        this.context.fillStyle = "black";
+        this.context.fillText("Your final score is: " + score, 200 , 250);
+        this.context.font = "15px serif";
+        this.context.fillStyle = "black";
+        this.context.fillText("Press any key to restart", 200 , 560);
+    },
+    
     
 };
 
@@ -99,7 +124,7 @@ function updateGameArea() {
     updateObstacles();
     foodUpdate();
     checkGameOver();
-    foodUpdate();
+    
 }
 
 // Let player to move
@@ -121,7 +146,8 @@ function checkGameOver() {
 
     if (crashed) {
         myGameArea.stop();
-        alert("You have killed a space puppy!");
+        myGameArea.clear();
+        myGameArea.gameOver();
     }
 }
 
@@ -131,7 +157,9 @@ function timer(){
     time -= 1;
     if(time <= 0){
         myGameArea.stop();
-        alert("Your time is over!");
+        myGameArea.clear();
+        myGameArea.timeOver();
+
     }
 }
 
