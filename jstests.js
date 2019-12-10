@@ -1,37 +1,18 @@
-//Food update
-function foodUpdate(){
-    food.newPos();
-    food.update();
-    checkGotFood();
-}
-// // Check if the player touched the food
-function checkGotFood() {
-    if(player.crashWith(food)){
-        score += 1;
-        food = new Component(10, 15, "blue", Math.random()*400, Math.random()*700);
-        console.log(score);
-    }
-}
-
-    //     });
-    
-//     if (gotFood) {
-//         myGameArea.stop();
-//         alert("You have killed a space puppy!");
-//     }
-//     console.log("food" + player.crashWith(food));
-// }
 
 
-
-
-
+// function score() {
+//     var points = Math.floor(frame / 10);
+//     context.font = "18px serif";
+//     context.fillStyle = "black";
+//     context.fillText("Score: " + points, 700, 50);
+//   }
 
 
 
 // THINGS TO DO:
 // print score
 // print timeleft
+// convert everything to a circle
 // get some skins
 // sound
 // add time bonus

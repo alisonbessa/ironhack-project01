@@ -66,11 +66,11 @@ class Component {
 }
 
 // Set variables
-let time = 10;
+let time = 60;
 let score = 0;
 let velocity = 10;
 let obstaclesQty = 100; // The highest value, the lowest obstacles
-let obstaclesSpd = 30;
+let obstaclesSpd = 20;
 let player = new Component(30, 60, "red", 185, 600);
 let obstacles = [];
 let food = new Component(10, 15, "blue", Math.random()*400, Math.random()*700);
@@ -138,6 +138,22 @@ function updateObstacles() {
     
     if (myGameArea.frames % (Math.floor(Math.random()*obstaclesQty)) === 0) {
         obstacles.push(new Component(30, 30, "yellow", Math.random()*385, 0));
+    }
+}
+
+//Food update
+function foodUpdate(){
+    food.newPos();
+    food.update();
+    checkGotFood();
+}
+// // Check if the player touched the food
+function checkGotFood() {
+    if(player.crashWith(food)){
+        score += 1;
+        obstaclesSpd += 1;
+        food = new Component(10, 15, "blue", Math.random()*400, Math.random()*700);
+        console.log(score);
     }
 }
 
