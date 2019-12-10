@@ -1,3 +1,4 @@
+// Create game canvas
 let myGameArea = {
     canvas: document.createElement("canvas"),
     frames: 0,
@@ -13,6 +14,7 @@ let myGameArea = {
             myGameArea.keys[e.keyCode] = true;
         })
         window.addEventListener('keyup', function (e) {
+            myGameArea.keys = (myGameArea.keys || []);
             myGameArea.keys[e.keyCode] = false;
         })
     },
@@ -24,12 +26,7 @@ let myGameArea = {
     },
 };
 
-function everyInterval(n){
-    if((myGameArea.frameNo / n) % 1 == 0)
-    {return true;}
-    return false;
-}
-
+// Create the Component's class
 class Component {
     constructor(width, height, color, x, y) {
         this.width = width;
@@ -51,6 +48,8 @@ class Component {
         this.x += this.speedX;
         this.y += this.speedY;
     }
+
+    // Colision system
     left(){return this.x;}
     right(){return this.x + this.width;}
     top(){return this.y;}
@@ -63,31 +62,34 @@ class Component {
           this.right() < obstacle.left() ||
           this.left() > obstacle.right()
         );
-      }
+    }
 }
 
+// Set variables
 let time = 10;
+let score = 0;
 let velocity = 10;
 let obstaclesQty = 100; // The highest value, the lowest obstacles
 let obstaclesSpd = 30;
-let player = new Component(30, 30, "red", 185, 600);
+let player = new Component(30, 60, "red", 185, 600);
 let obstacles = [];
+let food = new Component(10, 15, "blue", Math.random()*400, Math.random()*700);
+let foodExist = true;
 
 
+// Set functions
+// Calling game area functions
 function updateGameArea() {
     myGameArea.clear();
     playerUpdate();
     playerMovement();
     updateObstacles();
+    foodUpdate();
     checkGameOver();
+    foodUpdate();
 }
 
-
-function playerUpdate(){
-    player.newPos();
-    player.update();
-}
-
+// Let player to move
 function playerMovement(){
     player.speedX = 0;
     player.speedY = 0;
@@ -97,42 +99,49 @@ function playerMovement(){
     if (myGameArea.keys && myGameArea.keys[40]) {player.speedY = velocity; }
 }
 
-
-function updateObstacles() {
-    for (i = 0; i < obstacles.length; i++) {
-        obstacles[i].y += Math.random()*obstaclesSpd;
-        obstacles[i].update();
-    }
-    myGameArea.frames += 1;
-
-    if (myGameArea.frames % (Math.floor(Math.random()*obstaclesQty)) === 0) {
-        obstacles.push(new Component(30, 30, "yellow", Math.random()*385, 0));
-    }
-}
-
+// Check if the player touched an obstacle
 function checkGameOver() {
     let crashed = obstacles.some(function(obstacle) {
+        //console.log("obstacle" + player.crashWith(obstacle));
         return player.crashWith(obstacle);
     });
-  
+
     if (crashed) {
         myGameArea.stop();
         alert("You have killed a space puppy!");
     }
 }
 
-setInterval(function() {gameOver(); }, time*1000);
-
-function gameOver(){
- myGameArea.stop();
- alert("Your time is over!");
+// Set a timer for the game
+setInterval(function() {timer()}, 1000);
+function timer(){
+    time -= 1;
+    if(time <= 0){
+        myGameArea.stop();
+        alert("Your time is over!");
+    }
 }
 
+// Player update: Updates player's position and conditions
+function playerUpdate(){
+    player.newPos();
+    player.update();
+}
 
-
+// Update game with new random obstacles
+function updateObstacles() {
+    for (i = 0; i < obstacles.length; i++) {
+        obstacles[i].y += Math.random()*obstaclesSpd;
+        obstacles[i].update();
+    }
+    myGameArea.frames += 1;
+    
+    if (myGameArea.frames % (Math.floor(Math.random()*obstaclesQty)) === 0) {
+        obstacles.push(new Component(30, 30, "yellow", Math.random()*385, 0));
+    }
+}
 
 myGameArea.start();
-
 
 
 
