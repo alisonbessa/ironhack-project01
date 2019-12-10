@@ -1,17 +1,11 @@
 
 
-// function score() {
-//     var points = Math.floor(frame / 10);
-//     context.font = "18px serif";
-//     context.fillStyle = "black";
-//     context.fillText("Score: " + points, 700, 50);
-//   }
-
 
 
 // THINGS TO DO:
-// print score
-// print timeleft
+// create start screen
+// create gameover screen
+// dont move outside the canvas
 // convert everything to a circle
 // get some skins
 // sound

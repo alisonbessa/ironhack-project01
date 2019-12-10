@@ -24,6 +24,17 @@ let myGameArea = {
     stop: function() {
         clearInterval(this.interval);
     },
+    score: function() {
+        this.context.font = "18px serif";
+        this.context.fillStyle = "black";
+        this.context.fillText("Score: " + score, 300, 50);
+    },
+    timeLeft: function() {
+        this.context.font = "18px serif";
+        this.context.fillStyle = "black";
+        this.context.fillText("Time left: " + time, 40, 50);
+    },
+    
 };
 
 // Create the Component's class
@@ -69,11 +80,11 @@ class Component {
 let time = 60;
 let score = 0;
 let velocity = 10;
-let obstaclesQty = 100; // The highest value, the lowest obstacles
-let obstaclesSpd = 20;
+let obstaclesQty = 120; // The highest value, the lowest obstacles
+let obstaclesSpd = 5;
 let player = new Component(30, 60, "red", 185, 600);
 let obstacles = [];
-let food = new Component(10, 15, "blue", Math.random()*400, Math.random()*700);
+let food = new Component(10, 15, "blue", Math.random()*380, (Math.random()*650 + 70));
 let foodExist = true;
 
 
@@ -81,6 +92,8 @@ let foodExist = true;
 // Calling game area functions
 function updateGameArea() {
     myGameArea.clear();
+    myGameArea.score();
+    myGameArea.timeLeft();
     playerUpdate();
     playerMovement();
     updateObstacles();
@@ -93,10 +106,10 @@ function updateGameArea() {
 function playerMovement(){
     player.speedX = 0;
     player.speedY = 0;
-    if (myGameArea.keys && myGameArea.keys[37]) {player.speedX = -velocity; }
-    if (myGameArea.keys && myGameArea.keys[39]) {player.speedX = velocity; }
-    if (myGameArea.keys && myGameArea.keys[38]) {player.speedY = -velocity; }
-    if (myGameArea.keys && myGameArea.keys[40]) {player.speedY = velocity; }
+    if (myGameArea.keys && myGameArea.keys[37] && player.x > 0) {player.speedX = -velocity; }
+    if (myGameArea.keys && myGameArea.keys[39] && player.x < 370) {player.speedX = velocity; }
+    if (myGameArea.keys && myGameArea.keys[38] && player.y > 0) {player.speedY = -velocity; }
+    if (myGameArea.keys && myGameArea.keys[40] && player.y < 640) {player.speedY = velocity; }
 }
 
 // Check if the player touched an obstacle
@@ -152,6 +165,7 @@ function checkGotFood() {
     if(player.crashWith(food)){
         score += 1;
         obstaclesSpd += 1;
+        velocity *= 1.01;
         food = new Component(10, 15, "blue", Math.random()*400, Math.random()*700);
         console.log(score);
     }
