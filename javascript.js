@@ -84,7 +84,7 @@ let obstaclesQty = 120; // The highest value, the lowest obstacles
 let obstaclesSpd = 5;
 let player = new Component(30, 60, "red", 185, 600);
 let obstacles = [];
-let food = new Component(10, 15, "blue", Math.random()*380, (Math.random()*650 + 70));
+let food = new Component(10, 15, "blue", Math.random()*370, (Math.random()*650));
 let foodExist = true;
 
 
