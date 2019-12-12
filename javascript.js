@@ -130,9 +130,9 @@ let score = 0;
 let velocity = 10;
 let obstaclesQty = 200; // The highest value, the lowest obstacles
 let obstaclesSpd = 5;
-let player = new Component(30, 60, "red", 185, 600);
+let player = new Component(30, 30, "red", 185, 600);
 let obstacles = [];
-let food = new Component(10, 15, "blue", Math.random()*370, (Math.random()*650));
+let food = new Component(15, 15, "blue", Math.random()*370, (Math.random()*650));
 let foodExist = true;
 let record = 0;
 
@@ -239,7 +239,7 @@ function startGame(){
     if(!gameStart){
         gameStart = true;
         time = 60;
-        player = new Component(30, 60, "red", 185, 600);
+        player = new Component(30, 30, "red", 185, 600);
         obstacles = [];
         score = 0;
         myGameArea.start();
