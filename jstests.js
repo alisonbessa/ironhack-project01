@@ -1,31 +1,30 @@
-let mySoundTrack = new Audio("soundtrack.mp3");
-
-
-let gotFoodFX = new Audio("gotfood.mp3");
-
-
-//document.onkeydown
-
-// THINGS TO DO:
-// add time bonus
-// mobile friendly
-// add a super power
-// get some skins
-// convert everything to a circle
-
-
-
 
 // // Create game canvas
 // let myGameArea = {
 //     canvas: document.createElement("canvas"),
 //     frames: 0,
-//     start: function() {
+//     initial: function() {
 //         this.canvas.width = 400;
 //         this.canvas.height = 700;
 //         this.context = this.canvas.getContext("2d");
 //         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
 //         this.frameNo = 0;
+//         this.context.textAlign = "center";
+//         this.context.font = "25px serif";
+//         this.context.fillStyle = "black";
+//         this.context.fillText("Use directional keys", 200, 220);
+//         this.context.fillStyle = "black";
+//         this.context.fillText("to control the player", 200 , 250);
+//         this.context.font = "18px serif";
+//         this.context.fillStyle = "black";
+//         this.context.fillText("Avoid yellow squares and", 200 , 280);
+//         this.context.fillText("get the blue ones!", 200 , 310); 
+//         this.context.fillText("Press any key to start", 200 , 560);
+//         this.context.fillText(`The record is ${record}`, 200 , 600);
+        
+//     },
+    
+//     start: function() {
 //         this.interval = setInterval(updateGameArea, 30);
 //         window.addEventListener('keydown', function (e) {
 //             myGameArea.keys = (myGameArea.keys || []);
@@ -35,6 +34,7 @@ let gotFoodFX = new Audio("gotfood.mp3");
 //             myGameArea.keys = (myGameArea.keys || []);
 //             myGameArea.keys[e.keyCode] = false;
 //         })
+//         mySoundTrack.play();
        
 //     },
 //     clear: function() {
@@ -44,6 +44,7 @@ let gotFoodFX = new Audio("gotfood.mp3");
 //         clearInterval(this.interval);
 //     },
 //     score: function() {
+//         this.context.textAlign = "start";
 //         this.context.font = "18px serif";
 //         this.context.fillStyle = "black";
 //         this.context.fillText("Score: " + score, 300, 50);
@@ -64,6 +65,7 @@ let gotFoodFX = new Audio("gotfood.mp3");
 //         this.context.font = "15px serif";
 //         this.context.fillStyle = "black";
 //         this.context.fillText("Press any key to restart", 200 , 560);
+//         this.context.fillText(`The record is ${record}`, 200 , 600);
 //     },
 //     gameOver: function() {
 //         this.context.textAlign = "center";
@@ -76,6 +78,7 @@ let gotFoodFX = new Audio("gotfood.mp3");
 //         this.context.font = "15px serif";
 //         this.context.fillStyle = "black";
 //         this.context.fillText("Press any key to restart", 200 , 560);
+//         this.context.fillText(`The record is ${record}`, 200 , 600);
 //     },
     
     
@@ -121,15 +124,19 @@ let gotFoodFX = new Audio("gotfood.mp3");
 // }
 
 // // Set variables
+// let gameStart = false;
 // let time = 60;
 // let score = 0;
 // let velocity = 10;
 // let obstaclesQty = 200; // The highest value, the lowest obstacles
 // let obstaclesSpd = 5;
-// let player = new Component(30, 60, "red", 185, 600);
+// let player = new Component(30, 30, "red", 185, 600);
 // let obstacles = [];
-// let food = new Component(10, 15, "blue", Math.random()*370, (Math.random()*650));
+// let food = new Component(15, 15, "blue", Math.random()*370, (Math.random()*650));
 // let foodExist = true;
+// let record = 0;
+// let mySoundTrack = new Audio("soundtrack.mp3");
+// let gotFoodFX = new Audio("gotfood.mp3");
 
 
 // // Set functions
@@ -163,6 +170,10 @@ let gotFoodFX = new Audio("gotfood.mp3");
 //     });
 
 //     if (crashed) {
+//         if (score > record){
+//             record = score
+//         }
+//         gameStart = false;
 //         myGameArea.stop();
 //         myGameArea.clear();
 //         myGameArea.gameOver();
@@ -175,6 +186,10 @@ let gotFoodFX = new Audio("gotfood.mp3");
 //     if(time > 0){
 //         time -= 1;
 //     }else {
+//         if (score > record){
+//             record = score
+//         }
+//         gameStart = false;
 //         myGameArea.clear();
 //         myGameArea.stop();
 //         myGameArea.timeOver();  
@@ -196,7 +211,7 @@ let gotFoodFX = new Audio("gotfood.mp3");
 //     myGameArea.frames += 1;
     
 //     if (myGameArea.frames % (Math.floor(Math.random()*obstaclesQty)) === 0) {
-//         obstacles.push(new Component(30, 30, "yellow", Math.random()*385, 0));
+//         obstacles.push(new Component(30, 30, "yellow", Math.random()*370, 0));
 //     }
 // }
 
@@ -212,16 +227,31 @@ let gotFoodFX = new Audio("gotfood.mp3");
 //         score += 1;
 //         obstaclesSpd += 1;
 //         velocity *= 1.01;
-//         food = new Component(10, 15, "blue", Math.random()*400, Math.random()*700);
+//         food = new Component(15, 15, "blue", Math.random()*385, Math.random()*685);
 //         console.log(score);
 //         gotFoodFX.play();
 //     }
 // }
 
-// myGameArea.start();
+// document.addEventListener("keydown", startGame);
 
 
+// function startGame(){
+    
+//     if(!gameStart){
+//         gameStart = true;
+//         time = 60;
+//         player = new Component(30, 30, "red", 185, 600);
+//         obstacles = [];
+//         score = 0;
+//         setTimeout(function() {
+//             myGameArea.start();
+//           }, 2000);
+//     }
+// }
 
+
+// myGameArea.initial();
 
 
 

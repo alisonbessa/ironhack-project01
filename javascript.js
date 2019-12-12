@@ -135,6 +135,8 @@ let obstacles = [];
 let food = new Component(15, 15, "blue", Math.random()*370, (Math.random()*650));
 let foodExist = true;
 let record = 0;
+let mySoundTrack = new Audio("soundtrack.mp3");
+let gotFoodFX = new Audio("gotfood.mp3");
 
 
 // Set functions
