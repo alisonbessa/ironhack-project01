@@ -225,7 +225,7 @@ function checkGotFood() {
         score += 1;
         obstaclesSpd += 1;
         velocity *= 1.01;
-        food = new Component(10, 15, "blue", Math.random()*400, Math.random()*700);
+        food = new Component(15, 15, "blue", Math.random()*385, Math.random()*685);
         console.log(score);
         gotFoodFX.play();
     }
@@ -235,14 +235,16 @@ document.addEventListener("keydown", startGame);
 
 
 function startGame(){
-    console.log("teste");
+    
     if(!gameStart){
         gameStart = true;
         time = 60;
         player = new Component(30, 30, "red", 185, 600);
         obstacles = [];
         score = 0;
-        myGameArea.start();
+        setTimeout(function() {
+            myGameArea.start();
+          }, 2000);
     }
 }
 
