@@ -159,7 +159,7 @@ function playerMovement(){
     if (myGameArea.keys && myGameArea.keys[37] && player.x > 0) {player.speedX = -velocity; }
     if (myGameArea.keys && myGameArea.keys[39] && player.x < 370) {player.speedX = velocity; }
     if (myGameArea.keys && myGameArea.keys[38] && player.y > 0) {player.speedY = -velocity; }
-    if (myGameArea.keys && myGameArea.keys[40] && player.y < 640) {player.speedY = velocity; }
+    if (myGameArea.keys && myGameArea.keys[40] && player.y < 670) {player.speedY = velocity; }
 }
 
 // Check if the player touched an obstacle
