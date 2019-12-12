@@ -1,13 +1,30 @@
+
 // Create game canvas
 let myGameArea = {
     canvas: document.createElement("canvas"),
     frames: 0,
-    start: function() {
+    initial: function() {
         this.canvas.width = 400;
         this.canvas.height = 700;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
+        this.context.textAlign = "center";
+        this.context.font = "25px serif";
+        this.context.fillStyle = "black";
+        this.context.fillText("Use directional keys", 200, 220);
+        this.context.fillStyle = "black";
+        this.context.fillText("to control the player", 200 , 250);
+        this.context.font = "18px serif";
+        this.context.fillStyle = "black";
+        this.context.fillText("Avoid yellow squares and", 200 , 280);
+        this.context.fillText("get the blue ones!", 200 , 310); 
+        this.context.fillText("Press any key to start", 200 , 560);
+        this.context.fillText(`The record is ${record}`, 200 , 600);
+        
+    },
+    
+    start: function() {
         this.interval = setInterval(updateGameArea, 30);
         window.addEventListener('keydown', function (e) {
             myGameArea.keys = (myGameArea.keys || []);
@@ -17,6 +34,8 @@ let myGameArea = {
             myGameArea.keys = (myGameArea.keys || []);
             myGameArea.keys[e.keyCode] = false;
         })
+        mySoundTrack.play();
+       
     },
     clear: function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -25,6 +44,7 @@ let myGameArea = {
         clearInterval(this.interval);
     },
     score: function() {
+        this.context.textAlign = "start";
         this.context.font = "18px serif";
         this.context.fillStyle = "black";
         this.context.fillText("Score: " + score, 300, 50);
@@ -38,13 +58,14 @@ let myGameArea = {
         this.context.textAlign = "center";
         this.context.font = "25px serif";
         this.context.fillStyle = "black";
-        this.context.fillText("Your time is over!", 10 , 220);
+        this.context.fillText("Your time is over!", 200 , 220);
         this.context.font = "20px serif";
         this.context.fillStyle = "black";
-        this.context.fillText("Your final score is: " + score, 10 , 250);
+        this.context.fillText("Your final score is: " + score, 200 , 250);
         this.context.font = "15px serif";
         this.context.fillStyle = "black";
         this.context.fillText("Press any key to restart", 200 , 560);
+        this.context.fillText(`The record is ${record}`, 200 , 600);
     },
     gameOver: function() {
         this.context.textAlign = "center";
@@ -57,6 +78,7 @@ let myGameArea = {
         this.context.font = "15px serif";
         this.context.fillStyle = "black";
         this.context.fillText("Press any key to restart", 200 , 560);
+        this.context.fillText(`The record is ${record}`, 200 , 600);
     },
     
     
@@ -102,15 +124,17 @@ class Component {
 }
 
 // Set variables
+let gameStart = false;
 let time = 60;
 let score = 0;
 let velocity = 10;
-let obstaclesQty = 120; // The highest value, the lowest obstacles
+let obstaclesQty = 200; // The highest value, the lowest obstacles
 let obstaclesSpd = 5;
 let player = new Component(30, 60, "red", 185, 600);
 let obstacles = [];
 let food = new Component(10, 15, "blue", Math.random()*370, (Math.random()*650));
 let foodExist = true;
+let record = 0;
 
 
 // Set functions
@@ -124,7 +148,6 @@ function updateGameArea() {
     updateObstacles();
     foodUpdate();
     checkGameOver();
-    
 }
 
 // Let player to move
@@ -145,6 +168,10 @@ function checkGameOver() {
     });
 
     if (crashed) {
+        if (score > record){
+            record = score
+        }
+        gameStart = false;
         myGameArea.stop();
         myGameArea.clear();
         myGameArea.gameOver();
@@ -154,12 +181,16 @@ function checkGameOver() {
 // Set a timer for the game
 setInterval(function() {timer()}, 1000);
 function timer(){
-    time -= 1;
-    if(time <= 0){
-        myGameArea.stop();
+    if(time > 0){
+        time -= 1;
+    }else {
+        if (score > record){
+            record = score
+        }
+        gameStart = false;
         myGameArea.clear();
-        myGameArea.timeOver();
-
+        myGameArea.stop();
+        myGameArea.timeOver();  
     }
 }
 
@@ -178,7 +209,7 @@ function updateObstacles() {
     myGameArea.frames += 1;
     
     if (myGameArea.frames % (Math.floor(Math.random()*obstaclesQty)) === 0) {
-        obstacles.push(new Component(30, 30, "yellow", Math.random()*385, 0));
+        obstacles.push(new Component(30, 30, "yellow", Math.random()*370, 0));
     }
 }
 
@@ -196,14 +227,27 @@ function checkGotFood() {
         velocity *= 1.01;
         food = new Component(10, 15, "blue", Math.random()*400, Math.random()*700);
         console.log(score);
+        gotFoodFX.play();
     }
 }
 
-myGameArea.start();
+document.addEventListener("keydown", startGame);
 
 
+function startGame(){
+    console.log("teste");
+    if(!gameStart){
+        gameStart = true;
+        time = 60;
+        player = new Component(30, 60, "red", 185, 600);
+        obstacles = [];
+        score = 0;
+        myGameArea.start();
+    }
+}
 
 
+myGameArea.initial();
 
 
 
