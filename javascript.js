@@ -132,7 +132,7 @@ let obstaclesQty = 200; // The highest value, the lowest obstacles
 let obstaclesSpd = 5;
 let player = new Component(30, 30, "red", 185, 600);
 let obstacles = [];
-let food = new Component(15, 15, "blue", Math.random()*370, (Math.random()*65git 0+50));
+let food = new Component(15, 15, "blue", Math.random()*370, (Math.random()*600+50));
 let foodExist = true;
 let record = 0;
 let mySoundTrack = new Audio("soundtrack.mp3");
@@ -227,7 +227,7 @@ function checkGotFood() {
         score += 1;
         obstaclesSpd += 1;
         velocity *= 1.01;
-        food = new Component(15, 15, "blue", Math.random()*385, Math.random()*650+50);
+        food = new Component(15, 15, "blue", Math.random()*385, Math.random()*620+65);
         console.log(score);
         gotFoodFX.play();
     }
@@ -244,6 +244,9 @@ function startGame(){
         player = new Component(30, 30, "red", 185, 600);
         obstacles = [];
         score = 0;
+        obstaclesQty = 200; // The highest value, the lowest obstacles
+        obstaclesSpd = 5;
+        velocity = 10;
         setTimeout(function() {
             myGameArea.start();
           }, 2000);
