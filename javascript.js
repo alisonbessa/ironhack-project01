@@ -17,8 +17,8 @@ let myGameArea = {
         this.context.fillText("to control the player", 200 , 250);
         this.context.font = "18px serif";
         this.context.fillStyle = "black";
-        this.context.fillText("Avoid yellow squares and", 200 , 280);
-        this.context.fillText("get the blue ones!", 200 , 310); 
+        this.context.fillText("Avoid the pink obstacles", 200 , 290);
+        this.context.fillText("and get the green kids!", 200 , 310); 
         this.context.fillText("Press any key to start", 200 , 560);
         this.context.fillText(`The record is ${record}`, 200 , 600);
     },
@@ -70,7 +70,7 @@ let myGameArea = {
         this.context.textAlign = "center";
         this.context.font = "25px serif";
         this.context.fillStyle = "black";
-        this.context.fillText("You've killed Laika!", 200, 220);
+        this.context.fillText("You've killed yourself!", 200, 220);
         this.context.font = "20px serif";
         this.context.fillStyle = "black";
         this.context.fillText("Your final score is: " + score, 200 , 250);
@@ -131,7 +131,7 @@ let obstaclesQty = 200; // The highest value, the lowest obstacles
 let obstaclesSpd = 5;
 let player = new Component(100, 100, "red", 185, 600, "player.png");
 let obstacles = [];
-let food = new Component(16, 16, "blue", Math.random()*370, (Math.random()*600+80), "food.png");
+let food = new Component(20, 20, "blue", Math.random()*370, (Math.random()*600+80), "food.png");
 let foodExist = true;
 let record = 0;
 let mySoundTrack = new Audio("soundtrack.mp3");
@@ -226,7 +226,7 @@ function checkGotFood() {
         score += 1;
         obstaclesSpd += 1;
         velocity *= 1.01;
-        food = new Component(16, 16, "blue", Math.random()*385, Math.random()*600+80, "food.png");
+        food = new Component(20, 20, "blue", Math.random()*385, Math.random()*600+80, "food.png");
         gotFoodFX.play();
     }
 }
