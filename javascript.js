@@ -21,7 +21,6 @@ let myGameArea = {
         this.context.fillText("get the blue ones!", 200 , 310); 
         this.context.fillText("Press any key to start", 200 , 560);
         this.context.fillText(`The record is ${record}`, 200 , 600);
-        
     },
     
     start: function() {
@@ -80,13 +79,11 @@ let myGameArea = {
         this.context.fillText("Press any key to restart", 200 , 560);
         this.context.fillText(`The record is ${record}`, 200 , 600);
     },
-    
-    
 };
 
 // Create the Component's class
 class Component {
-    constructor(width, height, color, x, y) {
+    constructor(width, height, color, x, y, imgSrc) {
         this.width = width;
         this.height = height;
         this.color = color;
@@ -94,12 +91,14 @@ class Component {
         this.y = y;
         this.speedX = 0;
         this.speedY = 0;
+        this.img = new Image();
+        this.img.src = imgSrc;
     }
     
     update() {
         let ctx = myGameArea.context;
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        //ctx.fillStyle = this.color;
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
     
     newPos() {
@@ -130,9 +129,9 @@ let score = 0;
 let velocity = 10;
 let obstaclesQty = 200; // The highest value, the lowest obstacles
 let obstaclesSpd = 5;
-let player = new Component(30, 30, "red", 185, 600);
+let player = new Component(100, 100, "red", 185, 600, "player.png");
 let obstacles = [];
-let food = new Component(15, 15, "blue", Math.random()*370, (Math.random()*600+50));
+let food = new Component(16, 16, "blue", Math.random()*370, (Math.random()*600+80), "food.png");
 let foodExist = true;
 let record = 0;
 let mySoundTrack = new Audio("soundtrack.mp3");
@@ -165,7 +164,7 @@ function playerMovement(){
 // Check if the player touched an obstacle
 function checkGameOver() {
     let crashed = obstacles.some(function(obstacle) {
-        //console.log("obstacle" + player.crashWith(obstacle));
+      
         return player.crashWith(obstacle);
     });
 
@@ -211,7 +210,7 @@ function updateObstacles() {
     myGameArea.frames += 1;
     
     if (myGameArea.frames % (Math.floor(Math.random()*obstaclesQty)) === 0) {
-        obstacles.push(new Component(30, 30, "yellow", Math.random()*370, 0));
+        obstacles.push(new Component(30, 30, "yellow", Math.random()*370, 0, "enemies.png"));
     }
 }
 
@@ -227,8 +226,7 @@ function checkGotFood() {
         score += 1;
         obstaclesSpd += 1;
         velocity *= 1.01;
-        food = new Component(15, 15, "blue", Math.random()*385, Math.random()*620+65);
-        console.log(score);
+        food = new Component(16, 16, "blue", Math.random()*385, Math.random()*600+80, "food.png");
         gotFoodFX.play();
     }
 }
@@ -241,7 +239,7 @@ function startGame(){
     if(!gameStart){
         gameStart = true;
         time = 60;
-        player = new Component(30, 30, "red", 185, 600);
+        player = new Component(30, 30, "red", 185, 600, "player.png");
         obstacles = [];
         score = 0;
         obstaclesQty = 200; // The highest value, the lowest obstacles
@@ -249,7 +247,7 @@ function startGame(){
         velocity = 10;
         setTimeout(function() {
             myGameArea.start();
-          }, 2000);
+          }, 1000);
     }
 }
 

@@ -86,7 +86,7 @@
 
 // // Create the Component's class
 // class Component {
-//     constructor(width, height, color, x, y) {
+//     constructor(width, height, color, x, y, imgSrc) {
 //         this.width = width;
 //         this.height = height;
 //         this.color = color;
@@ -94,12 +94,14 @@
 //         this.y = y;
 //         this.speedX = 0;
 //         this.speedY = 0;
+//         this.img = new Image();
+//         this.img.src = imgSrc;
 //     }
     
 //     update() {
 //         let ctx = myGameArea.context;
-//         ctx.fillStyle = this.color;
-//         ctx.fillRect(this.x, this.y, this.width, this.height);
+//         //ctx.fillStyle = this.color;
+//         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 //     }
     
 //     newPos() {
@@ -130,9 +132,9 @@
 // let velocity = 10;
 // let obstaclesQty = 200; // The highest value, the lowest obstacles
 // let obstaclesSpd = 5;
-// let player = new Component(30, 30, "red", 185, 600);
+// let player = new Component(100, 100, "red", 185, 600, "player.png");
 // let obstacles = [];
-// let food = new Component(15, 15, "blue", Math.random()*370, (Math.random()*650));
+// let food = new Component(15, 15, "blue", Math.random()*370, (Math.random()*600+50), "food.png");
 // let foodExist = true;
 // let record = 0;
 // let mySoundTrack = new Audio("soundtrack.mp3");
@@ -159,7 +161,7 @@
 //     if (myGameArea.keys && myGameArea.keys[37] && player.x > 0) {player.speedX = -velocity; }
 //     if (myGameArea.keys && myGameArea.keys[39] && player.x < 370) {player.speedX = velocity; }
 //     if (myGameArea.keys && myGameArea.keys[38] && player.y > 0) {player.speedY = -velocity; }
-//     if (myGameArea.keys && myGameArea.keys[40] && player.y < 640) {player.speedY = velocity; }
+//     if (myGameArea.keys && myGameArea.keys[40] && player.y < 670) {player.speedY = velocity; }
 // }
 
 // // Check if the player touched an obstacle
@@ -211,7 +213,7 @@
 //     myGameArea.frames += 1;
     
 //     if (myGameArea.frames % (Math.floor(Math.random()*obstaclesQty)) === 0) {
-//         obstacles.push(new Component(30, 30, "yellow", Math.random()*370, 0));
+//         obstacles.push(new Component(30, 30, "yellow", Math.random()*370, 0, "enemies.png"));
 //     }
 // }
 
@@ -227,7 +229,10 @@
 //         score += 1;
 //         obstaclesSpd += 1;
 //         velocity *= 1.01;
-//         food = new Component(15, 15, "blue", Math.random()*385, Math.random()*685);
+//         food = new Component(15, 15, "blue", Math.random()*385, Math.random()*620+65, "food.png");
+
+//         //food = new Component(15, 15, "", Math.random()*385, Math.random()*620+65);
+        
 //         console.log(score);
 //         gotFoodFX.play();
 //     }
@@ -241,27 +246,17 @@
 //     if(!gameStart){
 //         gameStart = true;
 //         time = 60;
-//         player = new Component(30, 30, "red", 185, 600);
+//         player = new Component(30, 30, "red", 185, 600, "player.png");
 //         obstacles = [];
 //         score = 0;
+//         obstaclesQty = 200; // The highest value, the lowest obstacles
+//         obstaclesSpd = 5;
+//         velocity = 10;
 //         setTimeout(function() {
 //             myGameArea.start();
-//           }, 2000);
+//           }, 1000);
 //     }
 // }
 
 
 // myGameArea.initial();
-
-
-
-
-
-
-
-
-
-
-
-
-
