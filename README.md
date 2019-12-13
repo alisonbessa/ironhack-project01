@@ -1,4 +1,4 @@
-# First Project - 
+# First Project - Don't leave the kids alone
 This is a game project based on HTML5 and Javascript. It is part of my Ironhack Web Development Bootcamp.
 
 
