@@ -14,5 +14,13 @@ Catch as many green kids as possible. <br>
 
  ![Game screenshot](screenshot.png)
  
+ 
  ## Contact
  In case you want to contact me, send and e-mail to alisonbessa@gmail.com
+
+### Special thanks for my TAs: Heitor & Monica
+
+
+#### Images sources
+Background: https://escoban.artstation.com/projects/J8ron
+Sprites: https://opengameart.org/content/blocks-set-01
