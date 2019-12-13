@@ -22,5 +22,5 @@ Catch as many green kids as possible. <br>
 
 
 #### Images sources
-Background: https://escoban.artstation.com/projects/J8ron
+Background: https://escoban.artstation.com/projects/J8ron <br>
 Sprites: https://opengameart.org/content/blocks-set-01
