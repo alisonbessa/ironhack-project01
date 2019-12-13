@@ -131,11 +131,11 @@ let obstaclesQty = 200; // The highest value, the lowest obstacles
 let obstaclesSpd = 5;
 let player = new Component(100, 100, "red", 185, 600, "player.png");
 let obstacles = [];
-let food = new Component(20, 20, "blue", Math.random()*370, (Math.random()*600+80), "food.png");
-let foodExist = true;
+let kids = new Component(20, 20, "blue", Math.random()*370, (Math.random()*600+80), "kids.png");
+let kidsExist = true;
 let record = 0;
 let mySoundTrack = new Audio("soundtrack.mp3");
-let gotFoodFX = new Audio("gotfood.mp3");
+let gotkidsFX = new Audio("gotkids.mp3");
 
 
 // Set functions
@@ -147,7 +147,7 @@ function updateGameArea() {
     playerUpdate();
     playerMovement();
     updateObstacles();
-    foodUpdate();
+    kidsUpdate();
     checkGameOver();
 }
 
@@ -214,20 +214,20 @@ function updateObstacles() {
     }
 }
 
-//Food update
-function foodUpdate(){
-    food.newPos();
-    food.update();
-    checkGotFood();
+//kids update
+function kidsUpdate(){
+    kids.newPos();
+    kids.update();
+    checkGotkids();
 }
-// // Check if the player touched the food
-function checkGotFood() {
-    if(player.crashWith(food)){
+// // Check if the player touched the kids
+function checkGotkids() {
+    if(player.crashWith(kids)){
         score += 1;
         obstaclesSpd += 1;
         velocity *= 1.01;
-        food = new Component(20, 20, "blue", Math.random()*385, Math.random()*600+80, "food.png");
-        gotFoodFX.play();
+        kids = new Component(20, 20, "blue", Math.random()*385, Math.random()*600+80, "kids.png");
+        gotkidsFX.play();
     }
 }
 
